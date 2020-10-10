@@ -1,4 +1,12 @@
-# Movies Anywhere Connector
+# reshuffle-moviesanywhere-connector
+
+[Code](https://github.com/reshufflehq/reshuffle-moviesanywhere-connector) |
+[npm](https://www.npmjs.com/package/reshuffle-moviesanywhere-connector) |
+[Code sample](https://github.com/reshufflehq/reshuffle-moviesanywhere-connector/examples)
+
+`npm install reshuffle-moviesanywhere-connector`
+
+### Reshuffle Movies Anywhere Connector
 
 This package contains a [Resshufle](https://github.com/reshufflehq/reshuffle)
 connector to Movies Anywhere, providing access to movie data per the
@@ -8,9 +16,36 @@ The following actions return title information in the `TitleData` structure,
 as defined by the Movies Anywhere API. If the connector is configured with an
 API token, the returned data will include trailer information.
 
-In case of an error, all action throw an Error object.
+The following example create and API endpoint for retrieving movie data using
+it [EDIR](https://eidr.org) ID. You can try
+**10.5240/DF48-AB62-4486-C185-9E1B-4** or find EIDR IDs using the
+[Reshuffle EIDR Connector](https://github.com/reshufflehq/reshuffle-eidr-connector):
 
-_Actions_:
+```js
+const { Reshuffle, HttpConnector } = require('reshuffle')
+const { MoviesAnywhereConnector } = require('reshuffle-moviesanywhere-connector')
+
+const app = new Reshuffle()
+const ma = new MoviesAnywhereConnector(app)
+const http = new HttpConnector(app)
+
+http.on({ method: 'GET', path: '/' }, async (event) => {
+  const eidr = event.req.query.eidr
+  if (!/^10\.5240\/([0-9A-F]{4}-){5}[0-9A-Z]$/.test(eidr)) {
+    return event.res.status(400).send(`Invalid EIDR ID: ${eidr}`)
+  }
+  const data = await ma.getTitleByEIDR(eidr)
+  return event.res.json(data)
+})
+
+app.start(8000)
+```
+
+#### Table of Contents
+
+[Configuration](#configuration) Configuration options
+
+_Connector actions_:
 
 [getAllTitles](#getAllTitles) Get all titles data
 
@@ -20,16 +55,16 @@ _Actions_:
 
 [getTitlesByStudio](#getTitleByStudio) Get titles data from a specific studio
 
-## Construction
+##### <a name="configuration"></a>Configuration options
 
 ```js
 const app = new Reshuffle()
 const moviesAnywhereConnector = new MoviesAnywhereConnector(app)
 ```
 
-## Action Details
+#### Connector actions
 
-### <a name="getAllTitles"></a>Get all titles action
+##### <a name="getAllTitles"></a>Get all titles action
 
 _Definition:_
 
@@ -48,7 +83,7 @@ const { count, results } = await moviesAnywhereConnector.getAllTitles()
 
 Retrieve all title information stored by Movies Anywhere.
 
-### <a name="getTitleById"></a>Get title by ID action
+##### <a name="getTitleById"></a>Get title by ID action
 
 _Definition:_
 
@@ -67,7 +102,7 @@ const titleData = await moviesAnywhereConnector.getTitleById(id)
 
 Get the title information associated with a given Movies Anywhere ID.
 
-### <a name="getTitleByEIDR"></a>Get title by EIDR action
+##### <a name="getTitleByEIDR"></a>Get title by EIDR action
 
 _Definition:_
 
@@ -87,7 +122,7 @@ const titleData = await moviesAnywhereConnector.getTitleByEIDR(eidr)
 Get the title information associated with a given an EIDR ID, as specified by
 the [EIDR API](http://eidr.org/documents/EIDR_2.1_REST_API.pdf).
 
-### <a name="getTitlesByStudio"></a>Get titles by studio action
+##### <a name="getTitlesByStudio"></a>Get titles by studio action
 
 _Definition:_
 
