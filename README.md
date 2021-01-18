@@ -8,7 +8,7 @@
 
 ### Reshuffle Movies Anywhere Connector
 
-This package contains a [Reshuffle](https://reshuffle.com)
+This package contains a [Reshuffle](https://github.com/reshufflehq/reshuffle)
 connector to Movies Anywhere, providing access to movie data per the
 [Movies Anywhere API](https://api.moviesanywhere.com/v1/title/docs/index.html).
 
