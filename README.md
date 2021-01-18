@@ -2,13 +2,13 @@
 
 [Code](https://github.com/reshufflehq/reshuffle-moviesanywhere-connector) |
 [npm](https://www.npmjs.com/package/reshuffle-moviesanywhere-connector) |
-[Code sample](https://github.com/reshufflehq/reshuffle-moviesanywhere-connector/examples)
+[Code sample](https://github.com/reshufflehq/reshuffle-moviesanywhere-connector/tree/master/examples)
 
 `npm install reshuffle-moviesanywhere-connector`
 
 ### Reshuffle Movies Anywhere Connector
 
-This package contains a [Reshuffle](https://github.com/reshufflehq/reshuffle)
+This package contains a [Reshuffle](https://reshuffle.com)
 connector to Movies Anywhere, providing access to movie data per the
 [Movies Anywhere API](https://api.moviesanywhere.com/v1/title/docs/index.html).
 
