@@ -55,6 +55,8 @@ _Connector actions_:
 
 [getTitlesByStudio](#getTitleByStudio) Get titles data for a specific studio
 
+[getTransactionsByUser](#getTransactionsByUser) Get transaction history for user
+
 ##### <a name="configuration"></a>Configuration options
 
 ```js
@@ -144,3 +146,21 @@ const { count, results } =
 ```
 
 Retrieve all title information for movies released by the specified studio.
+
+##### <a name="getTransactionsByUser"></a>Get transactions by user action
+
+_Definition:_
+
+```ts
+(userId: string) => tranasactions: Object[]
+```
+
+_Usage:_
+
+```js
+const transactions =
+  await moviesAnywhereConnector.getTransactionsByUser('myid')
+```
+
+Retrieve the transaction (purchase) history for the specified user. The
+specified `userId` must be pre-registered with Movies Anywhere.
