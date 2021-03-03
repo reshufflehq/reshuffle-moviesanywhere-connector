@@ -1,6 +1,6 @@
 {
   "name": "reshuffle-moviesanywhere-connector",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Reshuffle connectors for Movies Anywhere",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
